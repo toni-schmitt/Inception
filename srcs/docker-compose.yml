@@ -12,6 +12,16 @@ services:
     networks:
       - inception
     restart: always
+    depends_on:
+      - php
+  php:
+    build: ./requirements/wordpress
+    container_name: php
+    volumes:
+      - data:/usr/share/nginx/html
+    networks:
+      - inception
+    restart: always
 
 volumes:
   data:
