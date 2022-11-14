@@ -1,5 +1,7 @@
 FROM debian:buster
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update
 # Install dumb-init for handling PID 0 and Zombie Proccesses
 RUN apt-get install -y --quiet \
