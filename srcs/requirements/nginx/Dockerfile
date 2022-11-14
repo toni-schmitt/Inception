@@ -21,10 +21,13 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 		-subj "/C=DE/ST=BW/L=Heilbronn/O=42 Heilbronn/CN=www.example.com" \
 		-keyout /etc/nginx/certs/cert.key -out /etc/nginx/certs/cert.crt
 
+# Copy nginx.conf to Container
 COPY nginx.conf /etc/nginx/sites-available/default
 
 EXPOSE 80/tcp
 
+# Use dumb-init as Entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
+# Start the nginx service
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
