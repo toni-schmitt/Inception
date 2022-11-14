@@ -10,6 +10,9 @@ RUN apt-get install -y --quiet \
 RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
 		nginx \
 		openssl
+# Remove all non needed packages and tmp directory
+RUN apt-get remove --purge --auto-remove -y --quiet
+RUN rm -rf /tmp/* /var/tmp/*
 
 # Generate DH Params (used for ssl key exchange?)
 RUN openssl dhparam 4096 -out /etc/nginx/certs/dhparam.pem
