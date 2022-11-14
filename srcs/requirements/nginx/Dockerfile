@@ -24,7 +24,8 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 # Copy nginx.conf to Container
 COPY nginx.conf /etc/nginx/sites-available/default
 
-EXPOSE 80/tcp
+# Expose Port 443 (https?)
+EXPOSE 443
 
 # Use dumb-init as Entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
