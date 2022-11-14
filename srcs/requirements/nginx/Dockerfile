@@ -14,8 +14,12 @@ RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
 RUN apt-get remove --purge --auto-remove -y --quiet
 RUN rm -rf /tmp/* /var/tmp/*
 
-# Generate DH Params (used for ssl key exchange?)
-RUN openssl dhparam 4096 -out /etc/nginx/certs/dhparam.pem
+# Generate self-signed TLS Certificate
+RUN mkdir -p /etc/nginx/certs
+RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+		# '-subj' for non interactive creation
+		-subj "/C=DE/ST=BW/L=Heilbronn/O=42 Heilbronn/CN=www.example.com" \
+		-keyout /etc/nginx/certs/cert.key -out /etc/nginx/certs/cert.crt
 
 COPY nginx.conf /etc/nginx/sites-available/default
 
