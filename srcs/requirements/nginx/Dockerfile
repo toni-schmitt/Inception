@@ -25,7 +25,7 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 COPY nginx.conf /etc/nginx/sites-available/inception
 
 # Link Inception Configuration to nginx's Configuration
-RUN ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/inception /etc/nginx/sites-enabled/
 
 # Expose Port 443 (https?)
 EXPOSE 443
