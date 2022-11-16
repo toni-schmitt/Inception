@@ -21,6 +21,8 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 		-subj "/C=DE/ST=BW/L=Heilbronn/O=42 Heilbronn/CN=www.example.com" \
 		-keyout /etc/nginx/certs/cert.key -out /etc/nginx/certs/cert.crt
 
+# Copy global config to Container
+COPY global_nginx.conf /etc/nginx/nginx.conf
 # Copy nginx.conf to Container
 COPY server_nginx.conf /etc/nginx/conf.d/server.conf
 
