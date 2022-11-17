@@ -26,6 +26,8 @@ RUN mkdir -p /var/www/inception
 RUN echo "<?php phpinfo(); ?>" >> /var/www/inception/info.php
 
 # Edit PHP Configuration
+# Copy PHP-FPM Configuration into Container
+COPY www.conf /etc/php/${PHP_VERSION}/fpm/pool.d
 # For security reasons: Limit what kind of php-cgi's can be run by the server
 RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/${PHP_VERSION}/fpm/php.ini
 # Set listen to port 9000 
@@ -53,6 +55,8 @@ RUN mkdir -p ${WP_ROOT_DIR}
 RUN chown -R www-data:www-data ${WP_ROOT_DIR}
 # Change user and group to www-data
 RUN chown www-data:www-data ${WP_ROOT_DIR}
+# Copy Wordpress Config to Container
+COPY wp-config.php ${WP_ROOT_DIR}
 # Create Directory for PHP-FPM .pid file
 RUN mkdir -p /var/run/php/
 
