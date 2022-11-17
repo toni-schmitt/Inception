@@ -7,6 +7,10 @@ RUN apt-get update
 RUN apt-get install -y --quiet \
 		dumb-init
 
+# Install ca-certificates for wget certificates and openssl certificates
+RUN apt-get install -y --quiet \
+		ca-certificates
+
 ARG PHP_VERSION=7.3
 # Install PHP
 RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
