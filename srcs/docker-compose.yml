@@ -2,6 +2,17 @@ networks:
   inception:
 
 services:
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    ports:
+      - '3306:3306'
+    volumes:
+      - database
+    networks:
+      - inception
+    restart: always
+
   nginx:
     build: ./requirements/nginx
     container_name: nginx
@@ -24,6 +35,12 @@ services:
     restart: always
 
 volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      o: binde
+      device: '/home/toni/data/database'
   data:
     driver: local
     driver_opts:
