@@ -52,7 +52,7 @@ RUN wget --no-check-certificate -P ${WP_DOWNLOAD_DIR} https://raw.githubusercont
 RUN chmod +x ${WP_DOWNLOAD_DIR}/wp-cli.phar
 RUN mv ${WP_DOWNLOAD_DIR}/wp-cli.phar ${WP_DOWNLOAD_DIR}/wp
 
-ARG WP_ROOT_DIR="/var/www/inception/wordpress"
+ARG WP_ROOT_DIR="/var/www/inception"
 ENV WP_ROOT_DIR=${WP_ROOT_DIR}
 # Create Wordpress site's document Root Directory
 RUN mkdir -p ${WP_ROOT_DIR}
