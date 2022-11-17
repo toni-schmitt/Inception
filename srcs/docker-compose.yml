@@ -21,7 +21,7 @@ services:
     ports:
       - '9000:9000'
     volumes:
-      - wp_php_volume:/var/www/html/inception/public_html
+      - wp_php_volume:/var/www/inception/
     networks:
       - inception
     env_file:
@@ -29,6 +29,21 @@ services:
     restart: always
     depends_on:
       - mariadb
+
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - '443:443'
+    volumes:
+      - wp_php_volume:/var/www/inception/
+    networks:
+      - inception
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - wordpress
 
 volumes:
   mariadb_volume:
