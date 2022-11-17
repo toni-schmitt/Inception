@@ -21,6 +21,8 @@ RUN service php${PHP_VERSION}-fpm stop
 
 # Creating Directory for PHP-FPM socket
 RUN mkdir -p /run/php/
+# Create Directory for PHP-FPM .pid file
+RUN mkdir -p /var/run/php/
 # TESTING: Just cheking if basic php is working
 RUN mkdir -p /var/www/inception
 RUN echo "<?php phpinfo(); ?>" >> /var/www/inception/info.php
@@ -57,8 +59,6 @@ RUN chown -R www-data:www-data ${WP_ROOT_DIR}
 RUN chown www-data:www-data ${WP_ROOT_DIR}
 # Copy Wordpress Config to Container
 COPY wp-config.php ${WP_ROOT_DIR}
-# Create Directory for PHP-FPM .pid file
-RUN mkdir -p /var/run/php/
 
 # Use dumb-init as Entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
