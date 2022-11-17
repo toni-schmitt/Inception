@@ -43,11 +43,10 @@ RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
 		tar
 
 ARG WP_DOWNLOAD_DIR="/usr/local/bin"
-WORKDIR ${WP_DOWNLOAD_DIR}
 # Download Wordpress CLI Tool
-RUN wget --no-check-certificate https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar
-RUN mv wp-cli.phar wp
+RUN wget --no-check-certificate -P ${WP_DOWNLOAD_DIR} https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x ${WP_DOWNLOAD_DIR}/wp-cli.phar
+RUN mv ${WP_DOWNLOAD_DIR}/wp-cli.phar ${WP_DOWNLOAD_DIR}/wp
 
 ARG WP_ROOT_DIR="/var/www/inception/wordpress"
 ENV WP_ROOT_DIR=${WP_ROOT_DIR}
