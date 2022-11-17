@@ -11,6 +11,8 @@ services:
       - database:/var/lib/mysql
     networks:
       - inception
+    env_file:
+      - .env
     restart: always
 
   wordpress:
@@ -22,6 +24,8 @@ services:
       - data:/var/www/html/inception/public_html
     networks:
       - inception
+    env_file:
+      - .env
     restart: always
     depends_on:
       - mariadb
