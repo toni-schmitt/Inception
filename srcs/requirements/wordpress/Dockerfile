@@ -49,7 +49,7 @@ RUN wget --no-check-certificate https://raw.githubusercontent.com/wp-cli/builds/
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar wp
 
-ARG WP_ROOT_DIR="/var/www/html/inception/public_html"
+ARG WP_ROOT_DIR="/var/www/inception/wordpress"
 ENV WP_ROOT_DIR=${WP_ROOT_DIR}
 # Create Wordpress site's document Root Directory
 RUN mkdir -p ${WP_ROOT_DIR}
