@@ -69,13 +69,13 @@ ARG SETUP_DIR=/home/root/wordpress_setup
 RUN mkdir -p ${SETUP_DIR}/bin/
 ENV PATH="${PATH}:${SETUP_DIR}/bin/"
 # Copy setup.sh into Container
-COPY setup.sh ${SETUP_DIR}/bin/mariadb_setup.sh
-RUN chmod +x ${SETUP_DIR}/bin/mariadb_setup.sh
+COPY setup.sh ${SETUP_DIR}/bin/wordpress_setup.sh
+RUN chmod +x ${SETUP_DIR}/bin/wordpress_setup.sh
 
 EXPOSE 9000
 
 # Run Wordpress Setup and execute php-fpm
-CMD ["setup.sh", "/usr/sbin/php-fpm", "--nodaemonize"]
+CMD ["wordpress_setup.sh", "/usr/sbin/php-fpm", "--nodaemonize"]
 
 # Start the php service
 #CMD ["/usr/sbin/php-fpm", "--nodaemonize"]
