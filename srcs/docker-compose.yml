@@ -13,6 +13,19 @@ services:
       - inception
     restart: always
 
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    ports:
+      - '9000:9000'
+    volumes:
+      - data
+    networks:
+      - inception
+    restart: always
+    depends_on:
+      - mariadb
+
   nginx:
     build: ./requirements/nginx
     container_name: nginx
@@ -24,15 +37,7 @@ services:
       - inception
     restart: always
     depends_on:
-      - php
-  php:
-    build: ./requirements/wordpress
-    container_name: php
-    volumes:
-      - data:/usr/share/nginx/html
-    networks:
-      - inception
-    restart: always
+      - wordpress
 
 volumes:
   database:
