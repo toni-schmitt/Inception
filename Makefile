@@ -22,6 +22,16 @@ volumes:
 
 re: down up
 
+logs: mariadb_logs wordpress_logs nginx_logs
+
+mariadb_logs:
+	docker logs mariadb
+
+wordpress_logs:
+	docker logs wordpress
+
+nginx_logs:
+	docker logs nginx
 
 exec_nginx:
 	docker container exec -it nginx bash
