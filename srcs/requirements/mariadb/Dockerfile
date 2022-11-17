@@ -19,7 +19,6 @@ EXPOSE 3306
 # Use dumb-init as Entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 ARG SETUP_DIR=/home/root/mariadb_setup/
 # Create Bin directory in HOME
 RUN mkdir -p ${SETUP_DIR}/bin/
