@@ -45,7 +45,7 @@ RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
 ARG WP_DOWNLOAD_DIR="/usr/local/bin"
 WORKDIR ${WP_DOWNLOAD_DIR}
 # Download Wordpress CLI Tool
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN wget --no-check-certificate https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar wp
 
