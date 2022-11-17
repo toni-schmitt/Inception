@@ -8,7 +8,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - database:/var/lib/mysql
+      - mariadb_volume:/var/lib/mysql
     networks:
       - inception
     env_file:
@@ -21,7 +21,7 @@ services:
     ports:
       - '9000:9000'
     volumes:
-      - wordpress_volume:/var/www/html/inception/public_html
+      - wp_php_volume:/var/www/html/inception/public_html
     networks:
       - inception
     env_file:
@@ -30,30 +30,16 @@ services:
     depends_on:
       - mariadb
 
-  nginx:
-    build: ./requirements/nginx
-    container_name: nginx
-    ports:
-      - '443:443'
-    volumes:
-      - data:/usr/share/nginx/html
-    networks:
-      - inception
-    restart: always
-    depends_on:
-      - wordpress
-
 volumes:
-  database:
+  mariadb_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: '/home/toni/data/database'
-
-  wordpress_volume:
+      device: '/home/toni/data/mariadb_volume'
+  wp_php_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: '/home/toni/data/wordpress_volume'
+      device: '/home/toni/data/wp_php_volume'
