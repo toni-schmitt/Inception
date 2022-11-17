@@ -21,7 +21,7 @@ services:
     ports:
       - '9000:9000'
     volumes:
-      - data:/var/www/html/inception/public_html
+      - wordpress_volume:/var/www/html/inception/public_html
     networks:
       - inception
     env_file:
@@ -48,11 +48,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      o: binde
+      o: bind
       device: '/home/toni/data/database'
-  data:
+
+  wordpress_volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: '/home/toni/data/nginx-php'
+      device: '/home/toni/data/wordpress_volume'

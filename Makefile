@@ -3,7 +3,7 @@ DOCKER_COMPOSE_FILE = $(SRCS_DIR)/docker-compose.yml
 
 VOLUMES_DIR = /home/toni/data
 DATA_VOLUMES_DIR = $(VOLUMES_DIR)/nginx-php
-DB_VOLUMES_DIR = $(VOLUMES_DIR)/db
+DB_VOLUMES_DIR = $(VOLUMES_DIR)/wordpress_volume
 
 all: up
 
