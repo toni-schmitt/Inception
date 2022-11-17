@@ -16,10 +16,22 @@ RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
 
 # Create Link from installed php-fpm binary (with specific Version) to generic php-fpm
 RUN ln -s /usr/sbin/php-fpm${PHP_VERSION} /usr/sbin/php-fpm
+# Stop PHP-FPM to free port 9000 and later start service
+RUN service php${PHP_VERSION}-fpm stop
+
+# Creating Directory for PHP-FPM socket
+RUN mkdir -p /run/php/
 # TESTING: Just cheking if basic php is working
 RUN mkdir -p /var/www/inception
 RUN echo "<?php phpinfo(); ?>" >> /var/www/inception/info.php
 
+# Edit PHP Configuration
+# For security reasons: Limit what kind of php-cgi's can be run by the server
+RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/${PHP_VERSION}/fpm/php.ini
+# Set listen to port 9000 
+RUN sed -i "s/listen = \/run\/php\/php$PHP_VERSION_ENV-fpm.sock/listen = 9000/g" /etc/php/7.3/fpm/pool.d/www.conf
+RUN sed -i 's/;listen.mode = 0660/listen.mode = 0660/g' /etc/php/7.3/fpm/pool.d/www.conf
+RUN sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php/7.3/fpm/pool.d/www.conf
 # Use dumb-init as Entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
