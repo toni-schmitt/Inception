@@ -11,7 +11,9 @@ RUN apt-get install -y --quiet --no-install-recommends --no-install-suggests \
 		mariadb-server
 
 # Copy Mariadb Config into Container
-COPY mariadb.conf /etc/mysql/mariadb.conf.d/
+# COPY mariadb.conf /etc/mysql/mariadb.conf.d/
+# Copy Mariadb Server Config into Container
+COPY 50-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Epose Port 3306 for Database
 EXPOSE 3306

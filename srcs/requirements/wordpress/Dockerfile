@@ -61,7 +61,7 @@ RUN chown -R www-data:www-data ${WP_ROOT_DIR}
 # Change user and group to www-data
 RUN chown www-data:www-data ${WP_ROOT_DIR}
 # Copy Wordpress Config to Container
-COPY wp-config.php ${WP_ROOT_DIR}
+COPY wp-config.php ${WP_ROOT_DIR}/wp-config.php
 
 # Use dumb-init as Entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]

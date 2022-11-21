@@ -22,6 +22,8 @@ volumes:
 
 re: down up
 
+fre: down fclean up
+
 volumes_delete: down
 	sudo $(RM) -rf $(DB_VOLUMES_DIR)
 	sudo $(RM) -rf $(DATA_VOLUMES_DIR)
@@ -40,7 +42,7 @@ network_clean: down
 container_clean: down
 	docker container rm nginx --force --volumes
 	docker container rm wordpress --force --volumes
-	docker container rm mariadb --force --volumes
+	docker container rm mariadb_c --force --volumes
 
 fclean: down cache_clean volume_clean network_clean container_clean
 	
@@ -50,7 +52,7 @@ sclean: down
 logs: mariadb_logs wordpress_logs nginx_logs
 
 mariadb_logs:
-	docker logs mariadb
+	docker logs mariadb_c
 
 wordpress_logs:
 	docker logs wordpress
@@ -64,3 +66,6 @@ exec_nginx:
 nginx_log:
 	docker container exec -it nginx cat /var/log/nginx/access.log
 	docker container exec -it nginx cat /var/log/nginx/error.log
+
+mariadb_log:
+	docker container exec -it mariadb_c cat  /var/log/mysql/error.log
