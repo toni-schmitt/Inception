@@ -23,8 +23,22 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
 
 # Copy global config to Container
 COPY global_nginx.conf /etc/nginx/nginx.conf
+
+ARG WORDPRESS_CNTR
+ENV PHP_SERVICE_ENV=${WORDPRESS_CNTR}
+RUN sed -i "s/PHP_SERVICE/${PHP_SERVICE_ENV}/g" /etc/nginx/nginx.conf
+
 # Copy nginx.conf to Container
 COPY server_nginx.conf /etc/nginx/conf.d/server.conf
+
+
+ARG NGINX_ROOT_DIR="/var/www/"
+# Create Root Directory for NGINX
+RUN mkdir -p ${NGINX_ROOT_DIR}
+# Change owner to www-data
+RUN chown -R www-data:www-data ${NGINX_ROOT_DIR}
+# Change user and group to www-data
+RUN chown www-data:www-data ${NGINX_ROOT_DIR}
 
 # Expose Port 443 (https?)
 EXPOSE 443

@@ -31,7 +31,10 @@ services:
       - mariadb
 
   nginx:
-    build: ./requirements/nginx
+    build:
+      context: ./requirements/nginx
+      args: 
+        - WORDPRESS_CNTR=wordpress
     container_name: nginx
     ports:
       - '443:443'
