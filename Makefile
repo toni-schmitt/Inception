@@ -22,6 +22,31 @@ volumes:
 
 re: down up
 
+volumes_delete: down
+	sudo $(RM) -rf $(DB_VOLUMES_DIR)
+	sudo $(RM) -rf $(DATA_VOLUMES_DIR)
+
+cache_clean: down
+	docker builder prune --force || true
+
+volume_clean: down
+	docker volume rm srcs_mariadb_volume --force
+	docker volume rm srcs_wp_php_volume --force
+	$(MAKE) volumes_delete
+
+network_clean: down
+	docker network rm srcs_inception || true
+
+container_clean: down
+	docker container rm nginx --force --volumes
+	docker container rm wordpress --force --volumes
+	docker container rm mariadb --force --volumes
+
+fclean: down cache_clean volume_clean network_clean container_clean
+	
+sclean: down
+	docker system prune -a
+
 logs: mariadb_logs wordpress_logs nginx_logs
 
 mariadb_logs:
