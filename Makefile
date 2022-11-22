@@ -60,6 +60,9 @@ wordpress_logs:
 nginx_logs:
 	docker logs nginx
 
+exec:
+	docker container exec -it $(C) $(CONTAINER) bash -c bash
+
 exec_nginx:
 	docker container exec -it nginx bash
 
